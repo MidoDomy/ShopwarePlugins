@@ -1,0 +1,18 @@
+{% block sw_cms_stage_section_selection__fullwidth %}
+    {% parent %}
+    
+    {# Grid section option(preview) #}
+    <div
+        class="sw-cms-stage-section-selection__grid"
+        @click="selectSection('grid')"
+    >
+        <div class="sw-cms-stage-section-selection__grid-preview">
+            <div class="sw-cms-stage-section-selection__grid-preview-inner">
+                <div class="sw-cms-stage-section-selection__grid-preview-placeholder"></div>
+                <div class="sw-cms-stage-section-selection__grid-preview-placeholder"></div>
+                <div class="sw-cms-stage-section-selection__grid-preview-placeholder"></div>
+            </div>
+        </div>
+        Grid
+    </div>
+{% endblock %}

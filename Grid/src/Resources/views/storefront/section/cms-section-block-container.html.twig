@@ -1,0 +1,84 @@
+{% block section_content_block %}
+    {% set cFields = block.customFields %}
+
+    {# checks if the variable has a value, if not then sets the default value #}
+    {# Must be in one line #}
+    {# _self.getVarValue(variable, defaultValue) #}
+    {% macro getVarValue(variable, default) %}{{ variable is not empty ? variable : default }}{% endmacro %}
+
+    {# checks if only desktop value is used, if used adds desktop value for each variable, if not used then each variable has its own value #}
+    {# _self.checkIfDesktop(true/false, String, mobileVariable, tabletVariable, DesktopVariable, defaultValue, String) #}
+    {% macro checkIfDesktop(isDesktop, cssVar, var, varMd, varLg, default, unit) %}
+        {{ isDesktop ? 
+            [ '--' ~ cssVar ~ ': ' ~ _self.getVarValue(varLg, default) ~ unit ~ ';',
+            '--' ~ cssVar ~ 'Md: ' ~ _self.getVarValue(varLg, default) ~ unit ~ ';',
+            '--' ~ cssVar ~ 'Lg: ' ~ _self.getVarValue(varLg, default) ~ unit ~ ';'
+            ]|join(' ')
+        :
+            [ '--' ~ cssVar ~ ': ' ~ _self.getVarValue(var, default) ~ unit ~ ';',
+            '--' ~ cssVar ~ 'Md: ' ~ _self.getVarValue(varMd, default) ~ unit ~ ';',
+            '--' ~ cssVar ~ 'Lg: ' ~ _self.getVarValue(varLg, default) ~ unit ~ ';'
+            ]|join(' ') }}
+    {% endmacro %}
+
+    {% set blockBgColor = block.backgroundColor %}
+    {% set blockClasses = [block.cssClass, 'pos-' ~ block.position, 'cms-block-' ~ block.type] %}
+
+    {% if block.backgroundMedia %}
+        {% set blockClasses = ['bg-image']|merge(blockClasses) %}
+    {% endif %}
+
+    {% if blockBgColor %}
+        {% set blockClasses = ['bg-color']|merge(blockClasses) %}
+    {% endif %}
+
+    {% set columns = 3 %}
+    {% set isInSidebar = block.sectionPosition == 'sidebar' %}
+    {% set sidebarClasses = '' %}
+
+    {% if isInSidebar == true %}
+        {% set sidebarClasses = 'has--sidebar' %}
+    {% endif %}
+
+    {# each property calls a function to determine responsive values #}
+    {% set blockVariables = [ 
+        _self.checkIfDesktop(cFields.desktopDefaultMinHeight, 'minHeight', cFields.minHeight, cFields.md_minHeight, cFields.lg_minHeight, '0', 'px'),
+        _self.checkIfDesktop(cFields.desktopDefaultBorderRadius, 'borderTopLeftRadius', cFields.borderRadiusTopLeft, cFields.md_borderRadiusTopLeft, cFields.lg_borderRadiusTopLeft, '0', 'px'),
+        _self.checkIfDesktop(cFields.desktopDefaultBorderRadius, 'borderTopRightRadius', cFields.borderRadiusTopRight, cFields.md_borderRadiusTopRight, cFields.lg_borderRadiusTopRight, '0', 'px'),
+        _self.checkIfDesktop(cFields.desktopDefaultBorderRadius, 'borderBottomRightRadius', cFields.borderRadiusBottomRight, cFields.md_borderRadiusBottomRight, cFields.lg_borderRadiusBottomRight, '0', 'px'),
+        _self.checkIfDesktop(cFields.desktopDefaultBorderRadius, 'borderBottomLeftRadius', cFields.borderRadiusBottomLeft, cFields.md_borderRadiusBottomLeft, cFields.lg_borderRadiusBottomLeft, '0', 'px'),
+        _self.checkIfDesktop(cFields.desktopDefaultMargin, 'marginTop', cFields.marginTop, cFields.md_marginTop, cFields.lg_marginTop, '0', 'px'),
+        _self.checkIfDesktop(cFields.desktopDefaultMargin, 'marginRight', cFields.marginRight, cFields.md_marginRight, cFields.lg_marginRight, '0', 'px'),
+        _self.checkIfDesktop(cFields.desktopDefaultMargin, 'marginBottom', cFields.marginBottom, cFields.md_marginBottom, cFields.lg_marginBottom, '0', 'px'),
+        _self.checkIfDesktop(cFields.desktopDefaultMargin, 'marginLeft', cFields.marginLeft, cFields.md_marginLeft, cFields.lg_marginLeft, '0', 'px'),
+        _self.checkIfDesktop(cFields.desktopDefaultPadding, 'paddingTop', cFields.paddingTop, cFields.md_paddingTop, cFields.lg_paddingTop, '0', 'px'),
+        _self.checkIfDesktop(cFields.desktopDefaultPadding, 'paddingRight', cFields.paddingRight, cFields.md_paddingRight, cFields.lg_paddingRight, '0', 'px'),
+        _self.checkIfDesktop(cFields.desktopDefaultPadding, 'paddingBottom', cFields.paddingBottom, cFields.md_paddingBottom, cFields.lg_paddingBottom, '0', 'px'),
+        _self.checkIfDesktop(cFields.desktopDefaultPadding, 'paddingLeft', cFields.paddingLeft, cFields.md_paddingLeft, cFields.lg_paddingLeft, '0', 'px'),
+    ] %}
+
+    <div class="cms-block {{ blockClasses|join(' ') }}"
+         style="{{ blockVariables|join(' ') }}{% if blockBgColor %} background-color: {{ blockBgColor }};{% endif %}">
+        {% block section_content_block_background_image %}
+            {% if block.backgroundMedia %}
+                {% sw_thumbnails 'cms-block-background' with {
+                    media: block.backgroundMedia,
+                    attributes: {
+                        class: "cms-block-background media-mode--" ~ block.backgroundMediaMode
+                    }
+                    } %}
+            {% endif %}
+        {% endblock %}
+
+        {% block section_content_block_container %}
+            <div class="cms-block-container">
+
+                {% block section_content_block_row %}
+                    <div class="cms-block-container-row row cms-row {{ sidebarClasses }}">
+                        {% sw_include "@Storefront/storefront/block/cms-block-" ~ block.type ~ ".html.twig" ignore missing %}
+                    </div>
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

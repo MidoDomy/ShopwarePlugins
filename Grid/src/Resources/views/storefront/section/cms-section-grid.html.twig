@@ -1,0 +1,44 @@
+{% block page_content_section_grid %}
+    {% set layout = section.sizingMode ? section.sizingMode|replace({"_": "-"}) : "container" %}
+
+    {% macro getVarValue(variable, default) %}{{ variable is not empty ? variable : default }}{% endmacro %}
+
+    {% macro checkIfDesktop(isDesktop, cssVar, var, varMd, varLg, default) %}
+        {{ isDesktop ? 
+            [ '--' ~ cssVar ~ ': ' ~ _self.getVarValue(varLg, default) ~ ';',
+              '--' ~ cssVar ~ 'Md: ' ~ _self.getVarValue(varLg, default) ~ ';',
+              '--' ~ cssVar ~ 'Lg: ' ~ _self.getVarValue(varLg, default) ~ ';'
+            ]|join(' ')
+        :
+            [ '--' ~ cssVar ~ ': ' ~ _self.getVarValue(var, default) ~ ';',
+            '--' ~ cssVar ~ 'Md: ' ~ _self.getVarValue(varMd, default) ~ ';',
+            '--' ~ cssVar ~ 'Lg: ' ~ _self.getVarValue(varLg, default) ~ ';'
+            ]|join(' ') }}
+    {% endmacro %}
+
+    <div class="cms-section-grid {{ layout }}">
+        <div class="row no-gutters">
+            {% for block in section.blocks %}
+                {% set cFields = block.customFields %}
+
+                {% set colClasses = [
+                    cFields.desktopDefaultColumnWidth ? 'col-' ~ cFields.lg_columnWidth : 'col-' ~ cFields.columnWidth ~ ' col-md-' ~ cFields.md_columnWidth ~ ' col-lg-' ~ cFields.lg_columnWidth
+                ] %}
+
+                {% set colVariables = [ 
+                    _self.checkIfDesktop(cFields.desktopDefaultColumnOrder, 'colOrder', cFields.columnSortOrder, cFields.md_columnSortOrder, cFields.lg_columnSortOrder, '100'),
+                    _self.checkIfDesktop(cFields.desktopDefaultDisplay, 'display', cFields.display, cFields.md_display, cFields.lg_display, 'block'),
+                    _self.checkIfDesktop(cFields.desktopDefaultVerticalAlign, 'alignSelf', cFields.verticalAlign, cFields.md_verticalAlign, cFields.lg_verticalAlign, 'flex-start')
+                ] %}
+
+                <div class="col {{ colClasses|join(' ') }} cms-block-col"
+                    style="{{ colVariables|join(' ') }}"
+                >
+                    {% block section_grid_content_block %}
+                        {% sw_include "@Storefront/storefront/section/cms-section-block-container.html.twig" %}
+                    {% endblock %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

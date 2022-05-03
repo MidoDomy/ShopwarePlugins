@@ -1,0 +1,38 @@
+{
+    "sw-cms": {
+        "detail": {
+            "label": {
+                "blockTopPaddingField": "Top padding",
+                "blockRightPaddingField": "Right padding",
+                "blockBottomPaddingField": "Bottom padding",
+                "blockLeftPaddingField": "Left padding",
+                "blockTopLeftBorderRadiusField": "Top left",
+                "blockTopRightBorderRadiusField": "Top right",
+                "blockBottomRightBorderRadiusField": "Bottom right",
+                "blockBottomLeftBorderRadiusField": "Bottom left"
+            }
+        },
+        "blockConfigModal": {
+            "tabDefault": "Default",
+            "tabStyle": "Style",
+            "tabSpacers": "Spacers",
+            "tabAdvanced": "Advanced",
+            "label": {
+                "columnWidth": "Column width",
+                "columnSort": "Column sort",
+                "verticalAlign": "Vertical align",
+                "verticalAlignTop": "Top",
+                "verticalAlignMiddle": "Middle",
+                "verticalAlignBottom": "Bottom",
+                "display": "Display",
+                "displayShow": "Visible",
+                "displayHide": "Hidden",
+                "minHeight": "Min height",
+                "margin": "Margin",
+                "padding": "Padding",
+                "borderRadius": "Border radius",
+                "useDesktop": "Use desktop value"
+            }
+        }
+    }
+}

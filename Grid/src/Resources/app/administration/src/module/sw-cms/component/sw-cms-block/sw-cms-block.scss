@@ -1,0 +1,171 @@
+.sw-cms-block {
+    &:hover {
+        .sw-cms-block__actions {
+            display: grid;
+        }
+    }
+
+    &__actions {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+        grid-template-columns: 1fr;
+        background-color: #189eff;
+        border: 1px solid #189eff;
+        border-bottom-right-radius: 8px;
+        z-index: 251;
+    }
+
+    &__settings-action,
+    &__remove-action {
+        padding: 10px;
+        line-height: 16px;
+        color: white;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #127ac4;
+        }
+    }
+
+    &__config-modal {
+        .sw-label {
+            height: auto;
+            padding: 0;
+            background: transparent;
+            border: 0;
+
+            .sw-icon {
+                margin-left: 4px;
+                vertical-align: text-top;
+            }
+        }
+
+        .sw-field.sw-block-field {
+            margin-bottom: 16px;
+        }
+
+        .sw-field--checkbox {
+            margin-top: -8px;
+        }
+    }
+
+    &_actions-margin-label,
+    &_actions-padding-label,
+    &_actions-border-radius-label {
+        margin-bottom: 10px;
+
+        .sw-icon {
+            margin-left: 4px;
+            vertical-align: bottom;
+        }
+    }
+
+    &_actions-margin-row,
+    &_actions-padding-row,
+    &_actions-border-radius-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 20px;
+        margin-bottom: 12px;
+        text-align: center;
+        
+        .sw-field.sw-block-field {
+            margin-bottom: 4px;
+        }
+
+        .sw-label {
+            text-align: center;
+        }
+    }
+
+    &__column-width {
+        .sw-field--radio {
+            margin-bottom: 16px;
+
+            &.is--disabled {
+                label {
+                    background: #7091b2;
+                    border-right-color: #2d363f;
+                    cursor: default;
+                }
+
+                .sw-field__radio-option-checked {
+                    &~ .sw-field__radio-option {
+                        label {
+                            background: #2d363f;
+                            border-right-color: #7091b2;
+                        }
+                    }
+                }
+            }
+        }
+
+        .sw-field__radio-group {
+            display: flex;
+        }
+
+        .sw-field__radio-option {
+            flex: 1;
+            display: block;
+            margin: 0;
+
+            &:first-child {
+                label {
+                    border-top-left-radius: 20px;
+                    border-bottom-left-radius: 20px;
+                }
+            }
+
+            &:last-child {
+                label {
+                    border-top-right-radius: 20px;
+                    border-bottom-right-radius: 20px;
+                }
+            }
+        }
+
+        .sw-field__radio-option-checked {
+            &~ .sw-field__radio-option {
+                label {
+                    background: #127ac4;
+                    border-right: 1px solid #189eff;
+                }
+            }
+        }
+
+        .sw-field__radio-input {
+            display: none;
+        }
+
+        label {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 16px;
+            background: #189eff;
+            border-right: 1px solid #127ac4;
+            cursor: pointer;
+
+            &:hover {
+                span {
+                    display: block;
+                }
+            }
+
+            span {
+                position: absolute;
+                bottom: 105%;
+                left: 50%;
+                transform: translateX(-50%);
+                display: none;
+                padding: 2px 4px;
+                background-color: rgba(0, 0, 0, 0.404);
+                color: white;
+                text-align: center;
+                word-break: keep-all;
+            }
+        }
+    }
+}
