@@ -1,0 +1,35 @@
+{% block element_list %}
+    <li class="cms-list-item">
+        <div class="cms-list-item-content" style="--level: {{ level }}; --paddingTop: {{ config.padding.value.top }}px; --paddingRight: {{ config.padding.value.right }}px; --paddingBottom: {{ config.padding.value.bottom }}px; --paddingLeft: {{ config.padding.value.left }}px;">
+            <span>{{ item.value.name }}</span>
+
+            {% if item.value.hasChildren && item.value.children|length > 0 && config.collapseType.value != 'none' %}
+                <button class="btn cms-list-collapse-button collapsed" 
+                    data-toggle="collapse" 
+                    data-target="#collapseList{{item.id}}" 
+                    aria-expanded="true" 
+                    aria-controls="collapseList{{item.id}}"
+                >
+                    {% sw_icon 'plus' %}
+                    {% sw_icon 'minus' %}
+                </button>
+            {% endif %}
+        </div>
+
+        {% if item.value.hasChildren && item.value.children|length > 0 %}
+            <div class="cms-list-item-collapse-container" style="--level: {{ level }}">
+                {% if config.collapseType.value != 'none' %}
+                    <div class="collapse" id="collapseList{{item.id}}"{% if config.collapseType.value == 'accordion' %} data-parent="#accordion{{ level }}"{% endif %}>
+                {% endif %}
+                    <ul class="list-unstyled cms-list"{% if config.collapseType.value == 'accordion' %} id="accordion{{ level + 1 }}"{% endif %}>
+                        {% for child in item.value.children %}
+                            {% sw_include "@Storefront/storefront/element/repeater/" ~ child.name ~ ".html.twig" with { item: child, level: level + 1 } %}
+                        {% endfor %}
+                    </ul>
+                {% if config.collapseType.value != 'none' %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </li>
+{% endblock %}

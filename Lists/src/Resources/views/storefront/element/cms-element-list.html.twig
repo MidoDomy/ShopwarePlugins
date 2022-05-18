@@ -1,0 +1,18 @@
+{% block element_list %}
+    {% set config = element.config %}
+
+    <div class="cms-element-{{ element.type }}">
+        {% block element_list_inner %}
+            <h3>{{ config.title.value }}</h3>
+
+            <ul class="list-unstyled cms-list borders-{{config.borderType.value}}" 
+                style="border-radius: {{config.borderRadius.value.topLeft}}px {{config.borderRadius.value.topRight}}px {{config.borderRadius.value.bottomRight}}px {{config.borderRadius.value.bottomLeft}}px;" 
+                {% if config.collapseType.value == 'accordion' %} id="accordion1"{% endif %}
+            >
+                {% for item in config.fields.value %}
+                    {% sw_include "@Storefront/storefront/element/repeater/" ~ item.name ~ ".html.twig" with { item: item, level: 1 } %}
+                {% endfor %}
+            </ul>
+        {% endblock %}
+    </div>
+{% endblock %}

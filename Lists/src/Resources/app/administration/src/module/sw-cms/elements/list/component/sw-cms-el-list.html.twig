@@ -1,0 +1,15 @@
+{% block sw_cms_element_list %}
+    <div class="sw-cms-el-list" :class="'sw-cms-el-list--border-' + borderType">
+        <h3 v-if="title" class="sw-cms-el-list__title">{{ title }}</h3>
+
+        <ul class="sw-cms-el-list__items" :style="(borderType === 'all' || borderType === 'outside') && borderRadiusStyles">
+            <list-item 
+                v-for="(item, index) in fields"
+                :key="'list-item-' + index"
+                :item="item"
+                :padding="padding"
+                level="1"
+            />
+        </ul>
+    </div>
+{% endblock %}

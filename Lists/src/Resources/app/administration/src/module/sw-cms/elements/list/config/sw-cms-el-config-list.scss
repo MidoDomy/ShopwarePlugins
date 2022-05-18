@@ -1,0 +1,31 @@
+.sw-cms-el-config-list {
+    .sw-tabs__custom-content {
+        padding-bottom: 0;
+    }
+
+    .sw-field--checkbox {
+        margin-top: -10px;
+    }
+
+    &__border-radius-label,
+    &__padding-label {
+        margin-bottom: 10px;
+    }
+
+    &__border-radius-row,
+    &__padding-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 20px;
+        margin-bottom: 12px;
+        text-align: center;
+        
+        .sw-field.sw-block-field {
+            margin-bottom: 4px;
+        }
+    
+        .sw-label {
+            text-align: center;
+        }
+    }
+}

@@ -1,0 +1,55 @@
+{
+    "sw-cms": {
+        "component": {
+            "repeater": {
+                "contentElements": "Content elements"
+            }
+        },
+        "elements": {
+            "general": {
+                "config": {
+                    "tab": {
+                        "styles": "Styles"
+                    }
+                }
+            },
+            "list": {
+                "label": "List",
+                "config": {
+                    "title": "Title",
+                    "blockName": "Item",
+                    "blockChildName": "Child",
+                    "text": "Text",
+                    "hasChildren": "Has children?",
+                    "addButton": "Add item",
+                    "addChildButton": "Add child",
+                    "collapseType": "Collapse type",
+                    "collapseTypeHelpText": "This option is only displayed on the storefront",
+                    "collapseTypeOption1": "None",
+                    "collapseTypeOption2": "Collapse",
+                    "collapseTypeOption3": "Accordion",
+                    "borderType": "Border type",
+                    "borderTypeOption1": "None",
+                    "borderTypeOption2": "All",
+                    "borderTypeOption3": "Inside",
+                    "borderTypeOption4": "Outside",
+                    "borderRadius": "Border radius",
+                    "topLeftBorderRadius": "Top left",
+                    "topRightBorderRadius": "Top right",
+                    "bottomRightBorderRadius": "Bottom right",
+                    "bottomLeftBorderRadius": "Bottom left",
+                    "padding": "Padding",
+                    "topPadding": "Top",
+                    "rightPadding": "Right",
+                    "bottomPadding": "Bottom",
+                    "leftPadding": "Left"
+                }
+            }
+        },
+        "blocks": {
+            "list": {
+                "label": "List"
+            }
+        }
+    }
+}

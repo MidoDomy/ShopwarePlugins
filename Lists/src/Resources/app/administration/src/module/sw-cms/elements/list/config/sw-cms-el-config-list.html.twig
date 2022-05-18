@@ -1,0 +1,271 @@
+{% block sw_cms_element_list_config %}
+    <div class="sw-cms-el-config-list">
+        {% block sw_cms_element_list_config_tabs %}
+            <sw-tabs
+                class="sw-cms-el-config-list__tabs"
+                default-item="content"
+            >
+                <template slot-scope="{ active }">
+                    {% block sw_cms_element_list_config_tab_content %}
+                        <sw-tabs-item
+                            :title="$tc('sw-cms.elements.general.config.tab.content')"
+                            name="content"
+                            :active-tab="active"
+                        >
+                            {{ $tc('sw-cms.elements.general.config.tab.content') }}
+                        </sw-tabs-item>
+                    {% endblock %}
+
+                    {% block sw_cms_element_list_config_tab_options %}
+                        <sw-tabs-item
+                            :title="$tc('sw-cms.elements.general.config.tab.settings')"
+                            name="settings"
+                            :active-tab="active"
+                        >
+                            {{ $tc('sw-cms.elements.general.config.tab.settings') }}
+                        </sw-tabs-item>
+                    {% endblock %}
+                </template>
+
+                <template
+                    slot="content"
+                    slot-scope="{ active }"
+                >
+                    {% block sw_cms_element_list_config_content %}
+                        <sw-container
+                            v-if="active === 'content'"
+                            class="sw-cms-el-config-list__tab-content"
+                        >
+                            {# Title #}
+                            {% block sw_cms_element_list_config_title %}
+                                <sw-field
+                                    v-model="element.config.title.value"
+                                    type="text"
+                                    :label="$tc('sw-cms.elements.list.config.title')"
+                                />
+                            {% endblock %}
+
+                            {# Items #}
+                            {% block sw_cms_element_list_config_items %}
+                                <repeater 
+                                    v-model="element.config.fields.value" 
+                                    formName="list-item"
+                                    :defaultValue="defaultValue" 
+                                    :blockName="$tc('sw-cms.elements.list.config.blockName')"
+                                    :addButtonText="$tc('sw-cms.elements.list.config.addButton')">
+                                </repeater>
+                            {% endblock %}
+                        </sw-container>
+                    {% endblock %}
+
+                    {% block sw_cms_element_list_config_settings %}
+                        <sw-container
+                            v-if="active === 'settings'"
+                            class="sw-cms-el-config-list__tab-settings"
+                        >
+                            {% block sw_cms_element_list_config_collapse_type %}
+                                <sw-select-field
+                                    v-model="element.config.collapseType.value"
+                                    :label="$tc('sw-cms.elements.list.config.collapseType')"
+                                    :help-text="$tc('sw-cms.elements.list.config.collapseTypeHelpText')"
+                                >
+                                    <option value="none">
+                                        {{ $tc('sw-cms.elements.list.config.collapseTypeOption1') }}
+                                    </option>
+                                    <option value="collapse">
+                                        {{ $tc('sw-cms.elements.list.config.collapseTypeOption2') }}
+                                    </option>
+                                    <option value="accordion">
+                                        {{ $tc('sw-cms.elements.list.config.collapseTypeOption3') }}
+                                    </option>
+                                </sw-select-field>
+                            {% endblock %}
+
+                            {% block sw_cms_element_list_config_border_type %}
+                                <sw-select-field
+                                    v-model="element.config.borderType.value"
+                                    :label="$tc('sw-cms.elements.list.config.borderType')"
+                                >
+                                    <option value="none">
+                                        {{ $tc('sw-cms.elements.list.config.borderTypeOption1') }}
+                                    </option>
+                                    <option value="all">
+                                        {{ $tc('sw-cms.elements.list.config.borderTypeOption2') }}
+                                    </option>
+                                    <option value="inside">
+                                        {{ $tc('sw-cms.elements.list.config.borderTypeOption3') }}
+                                    </option>
+                                    <option value="outside">
+                                        {{ $tc('sw-cms.elements.list.config.borderTypeOption4') }}
+                                    </option>
+                                </sw-select-field>
+                            {% endblock %}
+
+                            {# Border radius #}
+                            <template v-if="element.config.borderType.value === 'all' || element.config.borderType.value === 'outside'">
+                                {% block sw_cms_element_list_config_border_radius %}
+                                    <div class="sw-cms-el-config-list__border-radius-label">
+                                        {{ $tc('sw-cms.elements.list.config.borderRadius') }}
+                                    </div>
+                                    <div class="sw-cms-el-config-list__border-radius-row">
+                                        {# Top left #}
+                                        {% block sw_cms_element_list_config_top_border_radius_field %}
+                                            <div>
+                                                <sw-number-field  
+                                                    v-model="element.config.borderRadius.value.topLeft"
+                                                    numberType="int" 
+                                                    :step="1" 
+                                                    :min="0" 
+                                                >
+                                                    <template v-slot:suffix="{  identification  }">px</template>
+                                                </sw-number-field >
+                                            
+                                                <sw-label size="small">
+                                                    {{ $tc('sw-cms.elements.list.config.topLeftBorderRadius') }}
+                                                </sw-label>
+                                            </div>
+                                        {% endblock %}
+
+                                        {# Top right #}
+                                        {% block sw_cms_element_list_config_right_border_radius_field %}
+                                            <div>
+                                                <sw-number-field  
+                                                    v-model="element.config.borderRadius.value.topRight"
+                                                    numberType="int" 
+                                                    :step="1" 
+                                                    :min="0"
+                                                >
+                                                    <template v-slot:suffix="{  identification  }">px</template>
+                                                </sw-number-field >
+                                            
+                                                <sw-label size="small">
+                                                    {{ $tc('sw-cms.elements.list.config.topRightBorderRadius') }}
+                                                </sw-label>
+                                            </div>
+                                        {% endblock %}
+
+                                        {# Bottom right #}
+                                        {% block sw_cms_element_list_config_bottom_border_radius_field %}
+                                            <div>
+                                                <sw-number-field  
+                                                    v-model="element.config.borderRadius.value.bottomRight"
+                                                    numberType="int" 
+                                                    :step="1" 
+                                                    :min="0"
+                                                >
+                                                    <template v-slot:suffix="{  identification  }">px</template>
+                                                </sw-number-field >
+                                            
+                                                <sw-label size="small">
+                                                    {{ $tc('sw-cms.elements.list.config.bottomRightBorderRadius') }}
+                                                </sw-label>
+                                            </div>
+                                        {% endblock %}
+
+                                        {# Bottom left #}
+                                        {% block sw_cms_element_list_config_left_border_radius_field %}
+                                            <div>
+                                                <sw-number-field  
+                                                    v-model="element.config.borderRadius.value.bottomLeft"
+                                                    numberType="int" 
+                                                    :step="1" 
+                                                    :min="0"
+                                                >
+                                                    <template v-slot:suffix="{  identification  }">px</template>
+                                                </sw-number-field >
+                                            
+                                                <sw-label size="small">
+                                                    {{ $tc('sw-cms.elements.list.config.bottomLeftBorderRadius') }}
+                                                </sw-label>
+                                            </div>
+                                        {% endblock %}
+                                    </div>
+                                {% endblock %}
+                            </template>
+
+                            {# Padding #}
+                            {% block sw_cms_element_list_config_padding %}
+                                <div class="sw-cms-el-config-list__padding-label">
+                                    {{ $tc('sw-cms.elements.list.config.padding') }}
+                                </div>
+                                <div class="sw-cms-el-config-list__padding-row">
+                                    {# Padding top #}
+                                    {% block sw_cms_element_list_config_top_padding_field %}
+                                        <div>
+                                            <sw-number-field 
+                                                v-model="element.config.padding.value.top"
+                                                numberType="int" 
+                                                :step="1" 
+                                                :min="0"
+                                            >
+                                                <template v-slot:suffix="{  identification  }">px</template>
+                                            </sw-number-field>
+                                        
+                                            <sw-label size="small">
+                                                {{ $tc('sw-cms.elements.list.config.topPadding') }}
+                                            </sw-label>
+                                        </div>
+                                    {% endblock %}
+
+                                    {# Padding right #}
+                                    {% block sw_cms_element_list_config_right_padding_field %}
+                                        <div>
+                                            <sw-number-field 
+                                                v-model="element.config.padding.value.right"
+                                                numberType="int" 
+                                                :step="1" 
+                                                :min="0"
+                                            >
+                                                <template v-slot:suffix="{  identification  }">px</template>
+                                            </sw-number-field>
+                                        
+                                            <sw-label size="small">
+                                                {{ $tc('sw-cms.elements.list.config.rightPadding') }}
+                                            </sw-label>
+                                        </div>
+                                    {% endblock %}
+
+                                    {# Padding bottom #}
+                                    {% block sw_cms_element_list_config_bottom_padding_field %}
+                                        <div>
+                                            <sw-number-field 
+                                                v-model="element.config.padding.value.bottom"
+                                                numberType="int" 
+                                                :step="1" 
+                                                :min="0"
+                                            >
+                                                <template v-slot:suffix="{  identification  }">px</template>
+                                            </sw-number-field>
+                                        
+                                            <sw-label size="small">
+                                                {{ $tc('sw-cms.elements.list.config.bottomPadding') }}
+                                            </sw-label>
+                                        </div>
+                                    {% endblock %}
+
+                                    {# Padding left #}
+                                    {% block sw_cms_element_list_config_left_padding_field %}
+                                        <div>
+                                            <sw-number-field 
+                                                v-model="element.config.padding.value.left"
+                                                numberType="int" 
+                                                :step="1" 
+                                                :min="0" 
+                                            >
+                                                <template v-slot:suffix="{  identification  }">px</template>
+                                            </sw-number-field>
+                                        
+                                            <sw-label size="small">
+                                                {{ $tc('sw-cms.elements.list.config.leftPadding') }}
+                                            </sw-label>
+                                        </div>
+                                    {% endblock %}
+                                </div>
+                            {% endblock %}
+                        </sw-container>
+                    {% endblock %}
+                </template>
+            </sw-tabs>
+        {% endblock %}
+    </div>
+{% endblock %}

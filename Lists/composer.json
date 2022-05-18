@@ -1,18 +1,18 @@
 {
   "name": "swag/plugin-skeleton",
-  "description": "Grid plugin",
+  "description": "Cms list plugin",
   "type": "shopware-platform-plugin",
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Grid\\": "src/"
+      "Lists\\": "src/"
     }
   },
   "extra": {
-    "shopware-plugin-class": "Grid\\Grid",
+    "shopware-plugin-class": "Lists\\Lists",
     "label": {
-      "de-DE": "Grid plugin",
-      "en-GB": "Grid plugin"
+      "de-DE": "Cms list plugin",
+      "en-GB": "Cms list plugin"
     }
   }
 }
