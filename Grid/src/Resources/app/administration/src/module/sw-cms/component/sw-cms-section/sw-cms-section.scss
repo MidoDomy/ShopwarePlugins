@@ -1,12 +1,14 @@
 .is--grid {
     &.sw-cms-section {
-        .sw-cms-section__content {
-            display: grid;
-            grid-template-columns: repeat(12, minmax(0, 1fr));
-        }
+        .sw-cms-section {
+            &__content {
+                display: grid;
+                grid-template-columns: repeat(12, minmax(0, 1fr));
+            }
 
-        .sw-cms-section__empty-stage {
-            grid-column: span 12 / span 12;
+            &__empty-stage {
+                grid-column: span 12 / span 12;
+            }
         }
 
         .sw-cms-stage-block-outer {
@@ -71,4 +73,3 @@
         }
     }
 }
-

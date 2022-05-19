@@ -1,3 +1,5 @@
+import './sw-cms-block-config-modal';
+
 import template from './sw-cms-block.html.twig';
 import './sw-cms-block.scss';
 
@@ -5,11 +7,6 @@ const { Component, Mixin } = Shopware;
 
 Component.override('sw-cms-block', {
     template,
-
-    inject: [
-        'repositoryFactory',
-        'cmsService',
-    ],
 
     mixins: [
         Mixin.getByName('cms-state'),
@@ -22,38 +19,17 @@ Component.override('sw-cms-block', {
     },
 
     computed: {
-        uploadTag() {
-            return `cms-block-media-config-${this.block.id}`;
-        },
-
-        mediaRepository() {
-            return this.repositoryFactory.create('media');
-        },
-
         cFields() {
             return this.block.customFields;
         },
 
         // sends prefix of the current viewport
         // prefixes are used for dynamic variables
-        getVariablePrefix() {
+        variablePrefix() {
             return this.currentDeviceView === 'desktop' ? 'lg_' 
                 : 
                 this.currentDeviceView === 'tablet-landscape' ? 'md_' 
                     : '';
-        },
-
-        getIconName() {
-            return this.currentDeviceView === 'desktop' ? 'desktop' 
-                : 
-                this.currentDeviceView === 'tablet-landscape' ? 'tablet' 
-                    : 'mobile';
-        },
-
-        getSectionType() {
-            let section = this.cmsPageState.currentPage.sections.find(sec => sec.id === this.block.sectionId);
-
-            return section.type;
         },
 
         blockSpacing() {
@@ -104,26 +80,7 @@ Component.override('sw-cms-block', {
         // checks if the desktop value is the default, 
         // if not then sends a prefix of the current viewport
         useDesktopPrefix(isDesktop) {
-            return isDesktop ? 'lg_' : this.getVariablePrefix;
+            return isDesktop ? 'lg_' : this.variablePrefix;
         },
-
-        // background media methods
-        onSetBackgroundMedia([mediaItem]) {
-            this.block.backgroundMediaId = mediaItem.id;
-            this.block.backgroundMedia = mediaItem;
-        },
-
-        successfulUpload(media) {
-            this.block.backgroundMediaId = media.targetId;
-
-            this.mediaRepository.get(media.targetId).then((mediaItem) => {
-                this.block.backgroundMedia = mediaItem;
-            });
-        },
-
-        removeMedia() {
-            this.block.backgroundMediaId = null;
-            this.block.backgroundMedia = null;
-        }
     }
 });

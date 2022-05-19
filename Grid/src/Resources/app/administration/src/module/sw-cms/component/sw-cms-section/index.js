@@ -7,7 +7,7 @@ Component.override('sw-cms-section', {
     template,
 
     computed: {
-        getVariablePrefix() {
+        variablePrefix() {
             let prefix;
 
             prefix = this.currentDeviceView === 'desktop' ? 'lg_' 
@@ -52,7 +52,7 @@ Component.override('sw-cms-section', {
         },
 
         useDesktopPrefix(isDesktop) {
-            return isDesktop ? 'lg_' : this.getVariablePrefix;
+            return isDesktop ? 'lg_' : this.variablePrefix;
         },
 
         initCustomFields(block) {

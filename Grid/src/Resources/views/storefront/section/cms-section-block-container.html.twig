@@ -72,11 +72,8 @@
 
         {% block section_content_block_container %}
             <div class="cms-block-container">
-
                 {% block section_content_block_row %}
-                    <div class="cms-block-container-row row cms-row {{ sidebarClasses }}">
-                        {% sw_include "@Storefront/storefront/block/cms-block-" ~ block.type ~ ".html.twig" ignore missing %}
-                    </div>
+                    {{ parent() }}
                 {% endblock %}
             </div>
         {% endblock %}

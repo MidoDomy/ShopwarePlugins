@@ -1,0 +1,593 @@
+<sw-modal
+    class="sw-cms-block__config-modal"
+    title="Blok settings"
+    @modal-close="closeBlockConfigModal"
+>
+    <sw-tabs
+        class="sw-cms-el-config-image-slider__tabs"
+        default-item="default"
+    >
+        <template slot-scope="{ active }">
+            {% block sw_cms_block_config_modal_tab_navs %}
+                <sw-tabs-item
+                    :title="$tc('sw-cms.blockConfigModal.tabDefault')"
+                    name="default"
+                    :active-tab="active"
+                >
+                    {{ $tc('sw-cms.blockConfigModal.tabDefault') }}
+                </sw-tabs-item>
+
+                <sw-tabs-item
+                    :title="$tc('sw-cms.blockConfigModal.tabStyle')"
+                    name="style"
+                    :active-tab="active"
+                >
+                    {{ $tc('sw-cms.blockConfigModal.tabStyle') }}
+                </sw-tabs-item>
+
+                <sw-tabs-item
+                    :title="$tc('sw-cms.blockConfigModal.tabSpacers')"
+                    name="spacing"
+                    :active-tab="active"
+                >
+                    {{ $tc('sw-cms.blockConfigModal.tabSpacers') }}
+                </sw-tabs-item>
+
+                <sw-tabs-item
+                    :title="$tc('sw-cms.blockConfigModal.tabAdvanced')"
+                    name="advanced"
+                    :active-tab="active"
+                >
+                    {{ $tc('sw-cms.blockConfigModal.tabAdvanced') }}
+                </sw-tabs-item>
+            {% endblock %}
+        </template>
+
+        <template
+            slot="content"
+            slot-scope="{ active }"
+        >
+            {# Default tab #}
+            <sw-container
+                v-if="active === 'default'"
+                class="sw-cms-el-config-image-text-slider__tab-default"
+            >
+                {# Section grid options #}
+                <template v-if="sectionType === 'grid'">
+                    {# Column width #}
+                    {% block sw_cms_block_config_modal_column_width_field %}
+                        <sw-label>
+                            {{ $tc('sw-cms.blockConfigModal.label.columnWidth') }}
+                            <sw-icon
+                                :name="'default-device-' + iconName"
+                                size="16"
+                            />
+                        </sw-label>
+                        <div class="sw-cms-block__column-width">
+                            <sw-radio-field
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultColumnWidth) + 'columnWidth']"
+                                :options="[
+                                    {'value': 1, 'name': '1/12'},
+                                    {'value': 2, 'name': '2/12'},
+                                    {'value': 3, 'name': '3/12'},
+                                    {'value': 4, 'name': '4/12'},
+                                    {'value': 5, 'name': '5/12'},
+                                    {'value': 6, 'name': '6/12'},
+                                    {'value': 7, 'name': '7/12'},
+                                    {'value': 8, 'name': '8/12'},
+                                    {'value': 9, 'name': '9/12'},
+                                    {'value': 10, 'name': '10/12'},
+                                    {'value': 11, 'name': '11/12'},
+                                    {'value': 12, 'name': '12/12'},
+                                ]"
+                                :disabled="cFields.desktopDefaultColumnWidth && variablePrefix !== 'lg_'"
+                            ></sw-radio-field>
+                        </div>
+                    {% endblock %}
+                    {# Desktop value checkbox #}
+                    {% block sw_cms_block_config_modal_desktop_column_width_checkbox_field %}
+                        <sw-checkbox-field 
+                            v-model="cFields.desktopDefaultColumnWidth" 
+                            :label="$tc('sw-cms.blockConfigModal.label.useDesktop')"
+                        ></sw-checkbox-field>
+                    {% endblock %}
+
+                    {# Column order #}
+                    {% block sw_cms_block_config_modal_column_order_field %}
+                        <sw-label>
+                            {{ $tc('sw-cms.blockConfigModal.label.columnSort') }}
+                            <sw-icon
+                                :name="'default-device-' + iconName"
+                                size="16"
+                            />
+                        </sw-label>
+                        <sw-number-field 
+                            v-model="cFields[useDesktopPrefix(cFields.desktopDefaultColumnOrder) + 'columnSortOrder']"
+                            numberType="int" 
+                            :step="1" 
+                            :min="0" 
+                            :allowEmpty="false"
+                            :disabled="cFields.desktopDefaultColumnOrder && variablePrefix !== 'lg_'"
+                        >
+                        </sw-number-field>
+                    {% endblock %}
+                    {# Desktop value checkbox #}
+                    {% block sw_cms_block_config_modal_desktop_column_order_checkbox_field %}
+                        <sw-checkbox-field 
+                            v-model="cFields.desktopDefaultColumnOrder" 
+                            :label="$tc('sw-cms.blockConfigModal.label.useDesktop')"
+                        ></sw-checkbox-field>
+                    {% endblock %}
+
+                    {# Vertical align #}
+                    {% block sw_cms_block_config_modal_vertical_align_field %}
+                        <sw-label>
+                            {{ $tc('sw-cms.blockConfigModal.label.verticalAlign') }}
+                            <sw-icon
+                                :name="'default-device-' + iconName"
+                                size="16"
+                            />
+                        </sw-label>
+                        <sw-select-field
+                            v-model="cFields[useDesktopPrefix(cFields.desktopDefaultVerticalAlign) + 'verticalAlign']"
+                            :disabled="cFields.desktopDefaultVerticalAlign && variablePrefix !== 'lg_'"
+                        >
+                            <option value="flex-start">
+                                {{ $tc('sw-cms.blockConfigModal.label.verticalAlignTop') }}
+                            </option>
+                            <option value="center">
+                                {{ $tc('sw-cms.blockConfigModal.label.verticalAlignMiddle') }}
+                            </option>
+                            <option value="flex-end">
+                                {{ $tc('sw-cms.blockConfigModal.label.verticalAlignBottom') }}
+                            </option>
+                        </sw-select-field>
+                    {% endblock %}
+                    {# Desktop value checkbox #}
+                    {% block sw_cms_block_config_modal_desktop_vertical_align_checkbox_field %}
+                        <sw-checkbox-field 
+                            v-model="cFields.desktopDefaultVerticalAlign" 
+                            :label="$tc('sw-cms.blockConfigModal.label.useDesktop')"
+                        ></sw-checkbox-field>
+                    {% endblock %}
+                </template>
+
+                {# Display #}
+                {% block sw_cms_block_config_modal_display_field %}
+                    <sw-label>
+                        {{ $tc('sw-cms.blockConfigModal.label.display') }}
+                        <sw-icon
+                            :name="'default-device-' + iconName"
+                            size="16"
+                        />
+                    </sw-label>
+                    <sw-select-field
+                        v-model="cFields[useDesktopPrefix(cFields.desktopDefaultDisplay) + 'display']"
+                        :disabled="cFields.desktopDefaultDisplay && variablePrefix !== 'lg_'"
+                    >
+                        <option value="block">
+                            {{ $tc('sw-cms.blockConfigModal.label.displayShow') }}
+                        </option>
+                        <option value="none">
+                            {{ $tc('sw-cms.blockConfigModal.label.displayHide') }}
+                        </option>
+                    </sw-select-field>
+                {% endblock %}
+                {# Desktop value checkbox #}
+                {% block sw_cms_block_config_modal_desktop_display_checkbox_field %}
+                    <sw-checkbox-field 
+                        v-model="cFields.desktopDefaultDisplay" 
+                        :label="$tc('sw-cms.blockConfigModal.label.useDesktop')"
+                    ></sw-checkbox-field>
+                {% endblock %}
+
+                {# Min height #}
+                {% block sw_cms_block_config_modal_min_height_field %}
+                    <sw-label>
+                        {{ $tc('sw-cms.blockConfigModal.label.minHeight') }}
+                        <sw-icon
+                            :name="'default-device-' + iconName"
+                            size="16"
+                        />
+                    </sw-label>
+                    <sw-number-field
+                        v-model="cFields[useDesktopPrefix(cFields.desktopDefaultMinHeight) + 'minHeight']"
+                        numberType="int" 
+                        :step="1" 
+                        :min="0" 
+                        :disabled="cFields.desktopDefaultMinHeight && variablePrefix !== 'lg_'"
+                    >
+                        <template v-slot:suffix="{  identification  }">px</template>
+                    </sw-number-field>
+                {% endblock %}
+                {# Desktop value checkbox #}
+                {% block sw_cms_block_config_modal_desktop_min_height_checkbox_field %}
+                    <sw-checkbox-field 
+                        v-model="cFields.desktopDefaultMinHeight" 
+                        :label="$tc('sw-cms.blockConfigModal.label.useDesktop')"
+                    ></sw-checkbox-field>
+                {% endblock %}
+            </sw-container>
+
+            {# Style tab #}
+            <sw-container
+                v-if="active === 'style'"
+                class="sw-cms-el-config-image-text-slider__tab-style"
+            >
+                {# Background color #}
+                {% block sw_cms_block_config_modal_background_color_field %}
+                    <sw-colorpicker
+                        v-model="block.backgroundColor"
+                        :label="$tc('sw-cms.detail.label.backgroundColorLabel')"
+                        :placeholder="$tc('sw-cms.detail.label.backgroundColorField')"
+                    />
+                {% endblock %}
+    
+                {# Background image #}
+                {% block sw_cms_block_config_modal_background_image_field %}
+                    <div class="sw-field sw-block-field">
+                        <sw-media-compact-upload-v2
+                            :source="block && block.backgroundMedia && block.backgroundMedia.id ? block.backgroundMedia : null"
+                            :upload-tag="uploadTag"
+                            :label="$tc('sw-cms.detail.label.backgroundMediaLabel')"
+                            :default-folder="cmsPageState.pageEntityName"
+                            :allow-multi-select="false"
+                            @media-upload-remove-image="removeMedia"
+                            @selection-change="onSetBackgroundMedia"
+                        />
+                        <sw-upload-listener
+                            :upload-tag="uploadTag"
+                            auto-upload
+                            @media-upload-finish="successfulUpload"
+                        />
+                    </div>
+                {% endblock %}
+        
+                {# Background image position #}
+                {% block sw_cms_block_config_modal_background_image_position_field %}
+                    <sw-select-field
+                        v-show="block && block.backgroundMedia && block.backgroundMedia.id ? block.backgroundMedia : null"
+                        v-model="block.backgroundMediaMode"
+                        :label="$tc('sw-cms.detail.label.backgroundMediaMode')"
+                        :disabled="!block.backgroundMediaId"
+                    >
+                        <option value="auto">
+                            {{ $tc('sw-cms.detail.label.backgroundMediaModeAuto') }}
+                        </option>
+                        <option value="contain">
+                            {{ $tc('sw-cms.detail.label.backgroundMediaModeContain') }}
+                        </option>
+                        <option value="cover">
+                            {{ $tc('sw-cms.detail.label.backgroundMediaModeCover') }}
+                        </option>
+                    </sw-select-field>
+                {% endblock %}
+
+                {# Border radius #}
+                {% block sw_cms_block_config_modal_border_radius %}
+                    <div class="sw-cms-block__border-radius-label">
+                        {{ $tc('sw-cms.blockConfigModal.label.borderRadius') }}
+                        <sw-icon
+                            :name="'default-device-' + iconName"
+                            size="16"
+                        />
+                    </div>
+                {% endblock %}
+                <div class="sw-cms-block__border-radius-row">
+                    {# Top left #}
+                    {% block sw_cms_block_config_modal_top_border_radius_field %}
+                        <div>
+                            <sw-number-field  
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultBorderRadius) + 'borderRadiusTopLeft']"
+                                numberType="int" 
+                                :step="1" 
+                                :min="0" 
+                                :disabled="cFields.desktopDefaultBorderRadius && variablePrefix !== 'lg_'"
+                            >
+                                <template v-slot:suffix="{  identification  }">px</template>
+                            </sw-number-field >
+                        
+                            <sw-label size="small">
+                                {{ $tc('sw-cms.detail.label.blockTopLeftBorderRadiusField') }}
+                            </sw-label>
+                        </div>
+                    {% endblock %}
+
+                    {# Top right #}
+                    {% block sw_cms_block_config_modal_right_border_radius_field %}
+                        <div>
+                            <sw-number-field  
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultBorderRadius) + 'borderRadiusTopRight']"
+                                numberType="int" 
+                                :step="1" 
+                                :min="0" 
+                                :disabled="cFields.desktopDefaultBorderRadius && variablePrefix !== 'lg_'"
+                            >
+                                <template v-slot:suffix="{  identification  }">px</template>
+                            </sw-number-field >
+                        
+                            <sw-label size="small">
+                                {{ $tc('sw-cms.detail.label.blockTopRightBorderRadiusField') }}
+                            </sw-label>
+                        </div>
+                    {% endblock %}
+
+                    {# Bottom right #}
+                    {% block sw_cms_block_config_modal_bottom_border_radius_field %}
+                        <div>
+                            <sw-number-field  
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultBorderRadius) + 'borderRadiusBottomRight']"
+                                numberType="int" 
+                                :step="1" 
+                                :min="0" 
+                                :disabled="cFields.desktopDefaultBorderRadius && variablePrefix !== 'lg_'"
+                            >
+                                <template v-slot:suffix="{  identification  }">px</template>
+                            </sw-number-field >
+                        
+                            <sw-label size="small">
+                                {{ $tc('sw-cms.detail.label.blockBottomRightBorderRadiusField') }}
+                            </sw-label>
+                        </div>
+                    {% endblock %}
+
+                    {# Bottom left #}
+                    {% block sw_cms_block_config_modal_left_border_radius_field %}
+                        <div>
+                            <sw-number-field  
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultBorderRadius) + 'borderRadiusBottomLeft']"
+                                numberType="int" 
+                                :step="1" 
+                                :min="0" 
+                                :disabled="cFields.desktopDefaultBorderRadius && variablePrefix !== 'lg_'"
+                            >
+                                <template v-slot:suffix="{  identification  }">px</template>
+                            </sw-number-field >
+                        
+                            <sw-label size="small">
+                                {{ $tc('sw-cms.detail.label.blockBottomLeftBorderRadiusField') }}
+                            </sw-label>
+                        </div>
+                    {% endblock %}
+                </div>
+                {# Desktop value checkbox #}
+                {% block sw_cms_block_config_modal_desktop_border_radius_checkbox_field %}
+                    <sw-checkbox-field 
+                        v-model="cFields.desktopDefaultBorderRadius" 
+                        :label="$tc('sw-cms.blockConfigModal.label.useDesktop')"
+                    ></sw-checkbox-field>
+                {% endblock %}
+            </sw-container>
+
+            {# Spacing tab #}
+            <sw-container
+                v-if="active === 'spacing'"
+                class="sw-cms-el-config-image-text-slider__tab-spacing"
+            >
+                {# Margin #}
+                {% block sw_cms_block_config_modal_margin %}
+                    <div class="sw-cms-block__margin-label">
+                        {{ $tc('sw-cms.blockConfigModal.label.margin') }}
+                        <sw-icon
+                            :name="'default-device-' + iconName"
+                            size="16"
+                        />
+                    </div>
+                {% endblock %}
+                <div class="sw-cms-block__margin-row">
+                    {# Margin top #}
+                    {% block sw_cms_block_config_modal_top_margin_field %}
+                        <div>
+                            <sw-number-field  
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultMargin) + 'marginTop']"
+                                numberType="int" 
+                                :step="1" 
+                                :min="0" 
+                                :disabled="cFields.desktopDefaultMargin && variablePrefix !== 'lg_'"
+                            >
+                                <template v-slot:suffix="{  identification  }">px</template>
+                            </sw-number-field >
+                        
+                            <sw-label size="small">
+                                {{ $tc('sw-cms.detail.label.blockTopMarginField') }}
+                            </sw-label>
+                        </div>
+                    {% endblock %}
+
+                    {# Margin right #}
+                    {% block sw_cms_block_config_modal_right_margin_field %}
+                        <div>
+                            <sw-number-field  
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultMargin) + 'marginRight']"
+                                numberType="int" 
+                                :step="1" 
+                                :min="0" 
+                                :disabled="cFields.desktopDefaultMargin && variablePrefix !== 'lg_'"
+                            >
+                                <template v-slot:suffix="{  identification  }">px</template>
+                            </sw-number-field >
+                        
+                            <sw-label size="small">
+                                {{ $tc('sw-cms.detail.label.blockRightMarginField') }}
+                            </sw-label>
+                        </div>
+                    {% endblock %}
+
+                    {# Margin bottom #}
+                    {% block sw_cms_block_config_modal_bottom_margin_field %}
+                        <div>
+                            <sw-number-field  
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultMargin) + 'marginBottom']"
+                                numberType="int" 
+                                :step="1" 
+                                :min="0" 
+                                :disabled="cFields.desktopDefaultMargin && variablePrefix !== 'lg_'"
+                            >
+                                <template v-slot:suffix="{  identification  }">px</template>
+                            </sw-number-field >
+                        
+                            <sw-label size="small">
+                                {{ $tc('sw-cms.detail.label.blockBottomMarginField') }}
+                            </sw-label>
+                        </div>
+                    {% endblock %}
+
+                    {# Margin left #}
+                    {% block sw_cms_block_config_modal_left_margin_field %}
+                        <div>
+                            <sw-number-field  
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultMargin) + 'marginLeft']"
+                                numberType="int" 
+                                :step="1" 
+                                :min="0" 
+                                :disabled="cFields.desktopDefaultMargin && variablePrefix !== 'lg_'"
+                            >
+                                <template v-slot:suffix="{  identification  }">px</template>
+                            </sw-number-field >
+                        
+                            <sw-label size="small">
+                                {{ $tc('sw-cms.detail.label.blockLeftMarginField') }}
+                            </sw-label>
+                        </div>
+                    {% endblock %}
+                </div>
+                {# Desktop value checkbox #}
+                {% block sw_cms_block_config_modal_desktop_margin_checkbox_field %}
+                    <sw-checkbox-field 
+                        v-model="cFields.desktopDefaultMargin" 
+                        :label="$tc('sw-cms.blockConfigModal.label.useDesktop')"
+                    ></sw-checkbox-field>
+                {% endblock %}
+
+                {# Padding #}
+                {% block sw_cms_block_config_modal_padding %}
+                    <div class="sw-cms-block__padding-label">
+                        {{ $tc('sw-cms.blockConfigModal.label.padding') }}
+                        <sw-icon
+                            :name="'default-device-' + iconName"
+                            size="16"
+                        />
+                    </div>
+                {% endblock %}
+                <div class="sw-cms-block__padding-row">
+                    {# Padding top #}
+                    {% block sw_cms_block_config_modal_top_padding_field %}
+                        <div>
+                            <sw-number-field 
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultPadding) + 'paddingTop']"
+                                numberType="int" 
+                                :step="1" 
+                                :min="0" 
+                                :disabled="cFields.desktopDefaultPadding && variablePrefix !== 'lg_'"
+                            >
+                                <template v-slot:suffix="{  identification  }">px</template>
+                            </sw-number-field>
+                        
+                            <sw-label size="small">
+                                {{ $tc('sw-cms.detail.label.blockTopPaddingField') }}
+                            </sw-label>
+                        </div>
+                    {% endblock %}
+
+                    {# Padding right #}
+                    {% block sw_cms_block_config_modal_right_padding_field %}
+                        <div>
+                            <sw-number-field 
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultPadding) + 'paddingRight']"
+                                numberType="int" 
+                                :step="1" 
+                                :min="0" 
+                                :disabled="cFields.desktopDefaultPadding && variablePrefix !== 'lg_'"
+                            >
+                                <template v-slot:suffix="{  identification  }">px</template>
+                            </sw-number-field>
+                        
+                            <sw-label size="small">
+                                {{ $tc('sw-cms.detail.label.blockRightPaddingField') }}
+                            </sw-label>
+                        </div>
+                    {% endblock %}
+
+                    {# Padding bottom #}
+                    {% block sw_cms_block_config_modal_bottom_padding_field %}
+                        <div>
+                            <sw-number-field 
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultPadding) + 'paddingBottom']"
+                                numberType="int" 
+                                :step="1" 
+                                :min="0" 
+                                :disabled="cFields.desktopDefaultPadding && variablePrefix !== 'lg_'"
+                            >
+                                <template v-slot:suffix="{  identification  }">px</template>
+                            </sw-number-field>
+                        
+                            <sw-label size="small">
+                                {{ $tc('sw-cms.detail.label.blockBottomPaddingField') }}
+                            </sw-label>
+                        </div>
+                    {% endblock %}
+
+                    {# Padding left #}
+                    {% block sw_cms_block_config_modal_left_padding_field %}
+                        <div>
+                            <sw-number-field 
+                                v-model="cFields[useDesktopPrefix(cFields.desktopDefaultPadding) + 'paddingLeft']"
+                                numberType="int" 
+                                :step="1" 
+                                :min="0" 
+                                :disabled="cFields.desktopDefaultPadding && variablePrefix !== 'lg_'"
+                            >
+                                <template v-slot:suffix="{  identification  }">px</template>
+                            </sw-number-field>
+                        
+                            <sw-label size="small">
+                                {{ $tc('sw-cms.detail.label.blockLeftPaddingField') }}
+                            </sw-label>
+                        </div>
+                    {% endblock %}
+                </div>
+                {# Desktop value checkbox #}
+                {% block sw_cms_block_config_modal_desktop_padding_checkbox_field %}
+                    <sw-checkbox-field 
+                        v-model="cFields.desktopDefaultPadding" 
+                        :label="$tc('sw-cms.blockConfigModal.label.useDesktop')"
+                    ></sw-checkbox-field>
+                {% endblock %}
+            </sw-container>
+
+            {# Advanced options tab #}
+            <sw-container
+                v-if="active === 'advanced'"
+                class="sw-cms-el-config-image-text-slider__tab-advanced"
+            >
+                {# Block name #}
+                {% block sw_cms_block_config_modal_name_field %}
+                    <sw-text-field
+                        v-model="block.name"
+                        :label="$tc('sw-cms.detail.label.blockNameField')"
+                        :placeholder="$tc('sw-cms.detail.label.blockNameFieldPlaceholder')"
+                        :help-text="$tc('sw-cms.detail.tooltip.blockNameField')"
+                    />
+                {% endblock %}
+    
+                {# Css classes #}
+                {% block sw_cms_block_layout_modal_config_css_class %}
+                    <sw-text-field
+                        v-model="block.cssClass"
+                        :label="$tc('sw-cms.detail.label.cssClassField')"
+                        :help-text="$tc('sw-cms.detail.helpText.cssClassField')"
+                    />
+                {% endblock %}
+            </sw-container>
+        </template>
+    </sw-tabs>
+
+    <template slot="modal-footer">
+        <sw-button
+            variant="primary"
+            @click="closeBlockConfigModal"
+        >
+            {{ $tc('sw-cms.detail.label.buttonElementSettingsConfirm') }}
+        </sw-button>
+    </template>
+</sw-modal>

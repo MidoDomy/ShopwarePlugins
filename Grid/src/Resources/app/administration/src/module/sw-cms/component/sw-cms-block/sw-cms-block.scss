@@ -1,3 +1,7 @@
+@import "~scss/variables";
+
+$color-gray-alpha: rgba(0, 0, 0, 0.404);
+
 .sw-cms-block {
     &:hover {
         .sw-cms-block__actions {
@@ -11,8 +15,8 @@
         left: 0;
         display: none;
         grid-template-columns: 1fr;
-        background-color: #189eff;
-        border: 1px solid #189eff;
+        background-color: $color-shopware-brand-500;
+        border: 1px solid $color-shopware-brand-500;
         border-bottom-right-radius: 8px;
         z-index: 251;
     }
@@ -21,11 +25,11 @@
     &__remove-action {
         padding: 10px;
         line-height: 16px;
-        color: white;
+        color: $color-white;
         cursor: pointer;
 
         &:hover {
-            background-color: #127ac4;
+            background-color: $color-shopware-brand-800;
         }
     }
 
@@ -51,9 +55,9 @@
         }
     }
 
-    &_actions-margin-label,
-    &_actions-padding-label,
-    &_actions-border-radius-label {
+    &__margin-label,
+    &__padding-label,
+    &__border-radius-label {
         margin-bottom: 10px;
 
         .sw-icon {
@@ -62,9 +66,9 @@
         }
     }
 
-    &_actions-margin-row,
-    &_actions-padding-row,
-    &_actions-border-radius-row {
+    &__margin-row,
+    &__padding-row,
+    &__border-radius-row {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-gap: 20px;
@@ -81,62 +85,64 @@
     }
 
     &__column-width {
-        .sw-field--radio {
-            margin-bottom: 16px;
+        .sw-field {
+            &--radio {
+                margin-bottom: 16px;
 
-            &.is--disabled {
-                label {
-                    background: #7091b2;
-                    border-right-color: #2d363f;
-                    cursor: default;
-                }
+                &.is--disabled {
+                    label {
+                        background: $color-gray-900;
+                        border-right-color: $color-darkgray-600;
+                        cursor: default;
+                    }
 
-                .sw-field__radio-option-checked {
-                    &~ .sw-field__radio-option {
-                        label {
-                            background: #2d363f;
-                            border-right-color: #7091b2;
+                    .sw-field__radio-option-checked {
+                        &~ .sw-field__radio-option {
+                            label {
+                                background: $color-darkgray-600;
+                                border-right-color: $color-gray-900;
+                            }
                         }
                     }
                 }
             }
-        }
 
-        .sw-field__radio-group {
-            display: flex;
-        }
+            &__radio-group {
+                display: flex;
+            }
 
-        .sw-field__radio-option {
-            flex: 1;
-            display: block;
-            margin: 0;
-
-            &:first-child {
-                label {
-                    border-top-left-radius: 20px;
-                    border-bottom-left-radius: 20px;
+            &__radio-option {
+                flex: 1;
+                display: block;
+                margin: 0;
+    
+                &:first-child {
+                    label {
+                        border-top-left-radius: 20px;
+                        border-bottom-left-radius: 20px;
+                    }
+                }
+    
+                &:last-child {
+                    label {
+                        border-top-right-radius: 20px;
+                        border-bottom-right-radius: 20px;
+                    }
                 }
             }
 
-            &:last-child {
-                label {
-                    border-top-right-radius: 20px;
-                    border-bottom-right-radius: 20px;
+            &__radio-option-checked {
+                &~ .sw-field__radio-option {
+                    label {
+                        background: $color-shopware-brand-800;
+                        border-right: 1px solid $color-shopware-brand-500;
+                    }
                 }
             }
-        }
 
-        .sw-field__radio-option-checked {
-            &~ .sw-field__radio-option {
-                label {
-                    background: #127ac4;
-                    border-right: 1px solid #189eff;
-                }
+            &__radio-input {
+                display: none;
             }
-        }
-
-        .sw-field__radio-input {
-            display: none;
         }
 
         label {
@@ -144,8 +150,8 @@
             display: block;
             width: 100%;
             height: 16px;
-            background: #189eff;
-            border-right: 1px solid #127ac4;
+            background: $color-shopware-brand-500;
+            border-right: 1px solid $color-shopware-brand-800;
             cursor: pointer;
 
             &:hover {
@@ -161,8 +167,8 @@
                 transform: translateX(-50%);
                 display: none;
                 padding: 2px 4px;
-                background-color: rgba(0, 0, 0, 0.404);
-                color: white;
+                background-color: $color-gray-alpha;
+                color: $color-white;
                 text-align: center;
                 word-break: keep-all;
             }
