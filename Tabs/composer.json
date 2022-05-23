@@ -1,0 +1,18 @@
+{
+  "name": "swag/plugin-skeleton",
+  "description": "Cms element tabs",
+  "type": "shopware-platform-plugin",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Tabs\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "Tabs\\Tabs",
+    "label": {
+      "de-DE": "Cms element tabs",
+      "en-GB": "Cms element tabs"
+    }
+  }
+}

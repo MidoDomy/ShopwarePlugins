@@ -1,0 +1,37 @@
+{
+    "sw-cms": {
+        "detail": {
+            "label": {
+                "customElements": "Cutsom elements"
+            }
+        },
+        "component": {
+            "repeater": {
+                "contentElements": "Content elements"
+            }
+        },
+        "elements": {
+            "general": {
+                "config": {
+                    "tab": {
+                        "styles": "Styles"
+                    }
+                }
+            },
+            "tabs": {
+                "label": "Tabs",
+                "config": {
+                    "blockName": "Tab",
+                    "header": "Tab header",
+                    "content": "Tab content",
+                    "addButton": "Add new tab"
+                }
+            }
+        },
+        "blocks": {
+            "tabs": {
+                "label": "Tabs"
+            }
+        }
+    }
+}

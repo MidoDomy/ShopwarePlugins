@@ -1,0 +1,21 @@
+{
+    "sw-cms": {
+        "component": {
+            "repeater": {
+                "contentElements": "Content elements"
+            }
+        },
+        "elements": {
+            "general": {
+                "config": {
+                    "tab": {
+                        "styles": "Styles"
+                    }
+                }
+            }
+        },
+        "blocks": {
+            
+        }
+    }
+}

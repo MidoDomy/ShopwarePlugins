@@ -1,0 +1,30 @@
+{% block sw_cms_element_tabs %}
+    <div class="sw-cms-el-tabs">
+        <sw-tabs 
+            :small="false"
+            default-item="tab0"
+        >
+            <template #default="{ active }">
+                <sw-tabs-item
+                    v-for="(tab, index) in fields"
+                    :key="'tab-header-' + index"
+                    :name="'tab' + index"
+                    :title="tab.value.header"
+                    :active-tab="active"
+                >
+                    {{ tab.value.header }}
+                </sw-tabs-item>
+            </template>
+
+            <template #content="{ active }">
+                <div
+                    v-for="(tab, index) in fields"
+                    :key="'tab-content-' + index"
+                    v-if="active === ('tab' + index)"
+                >
+                    {{ tab.value.content }}
+                </div>
+            </template>
+        </sw-tabs>
+    </div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% block sw_cms_element_tabs_config %}
+    <div class="sw-cms-el-config-tabs">
+        {% block sw_cms_element_tabs_config_tabs %}
+            <sw-tabs
+                class="sw-cms-el-config-tabs__tabs"
+                default-item="content"
+            >
+                <template slot-scope="{ active }">
+                    {% block sw_cms_element_tabs_config_tab_content %}
+                        <sw-tabs-item
+                            :title="$tc('sw-cms.elements.general.config.tab.content')"
+                            name="content"
+                            :active-tab="active"
+                        >
+                            {{ $tc('sw-cms.elements.general.config.tab.content') }}
+                        </sw-tabs-item>
+                    {% endblock %}
+
+                    {% block sw_cms_element_tabs_config_tab_options %}
+                        <sw-tabs-item
+                            :title="$tc('sw-cms.elements.general.config.tab.settings')"
+                            name="settings"
+                            :active-tab="active"
+                        >
+                            {{ $tc('sw-cms.elements.general.config.tab.settings') }}
+                        </sw-tabs-item>
+                    {% endblock %}
+                </template>
+
+                <template
+                    slot="content"
+                    slot-scope="{ active }"
+                >
+                    {% block sw_cms_element_tabs_config_content %}
+                        <sw-container
+                            v-if="active === 'content'"
+                            class="sw-cms-el-config-tabs__tab-content"
+                        >
+                            {# Items #}
+                            {% block sw_cms_element_tabs_config_items %}
+                                <repeater 
+                                    v-model="element.config.fields.value" 
+                                    formName="tab"
+                                    :defaultValue="defaultValue" 
+                                    :blockName="$tc('sw-cms.elements.tabs.config.blockName')"
+                                    :addButtonText="$tc('sw-cms.elements.tabs.config.addButton')">
+                                </repeater>
+                            {% endblock %}
+                        </sw-container>
+                    {% endblock %}
+
+                    {% block sw_cms_element_tabs_config_settings %}
+                        <sw-container
+                            v-if="active === 'settings'"
+                            class="sw-cms-el-config-tabs__tab-settings"
+                        >
+                            Nesto
+                        </sw-container>
+                    {% endblock %}
+                </template>
+            </sw-tabs>
+        {% endblock %}
+    </div>
+{% endblock %}

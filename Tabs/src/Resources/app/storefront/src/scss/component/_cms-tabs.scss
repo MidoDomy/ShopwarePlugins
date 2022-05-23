@@ -1,0 +1,15 @@
+.card-tabs {
+    .card-header {
+        padding: 0;
+    }
+}
+
+.nav-tabs {
+    border: 0;
+
+    .nav-link {
+        &.active {
+            background-color: transparent;
+        }
+    }
+}

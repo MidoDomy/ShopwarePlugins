@@ -1,0 +1,23 @@
+{% block sw_cms_element_tab %}
+    <div class="tab">
+        {% block sw_cms_element_tab_form_config %}
+            {# Tab name #}
+            <sw-field
+                v-model="tab.header"
+                type="text"
+                :label="$tc('sw-cms.elements.tabs.config.header')"
+                required="required"
+            />
+
+            {# Tab content #}
+            <sw-text-editor
+                v-model="tab.content"
+                :label="$tc('sw-cms.elements.tabs.config.content')"
+                :allow-inline-data-mapping="true"
+                sanitize-input
+                @input="onInput"
+                @blur="onBlur"
+            />
+        {% endblock %}
+    </div>
+{% endblock %}
