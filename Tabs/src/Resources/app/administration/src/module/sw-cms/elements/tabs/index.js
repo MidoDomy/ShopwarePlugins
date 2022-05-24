@@ -20,6 +20,14 @@ Shopware.Service('cmsService').registerCmsElement({
                     }
                 }
             ]
-        }
+        },
+        isOffcanvasOnMobile: {
+            source: 'static',
+            value: true
+        },
+        showShortPreview: {
+            source: 'static',
+            value: true
+        },
     }
 });

@@ -24,7 +24,11 @@
                     "blockName": "Tab",
                     "header": "Tab header",
                     "content": "Tab content",
-                    "addButton": "Add new tab"
+                    "addButton": "Add new tab",
+                    "isOffcanvasOnMobile": "Is offcanvas on mobile?",
+                    "isOffcanvasOnMobileHelpText": "This option is only activated for the storefront.",
+                    "showShortPreview": "Show short preview",
+                    "showShortPreviewHelpText": "This option is only activated for the storefront."
                 }
             }
         },

@@ -31,6 +31,7 @@
                     slot="content"
                     slot-scope="{ active }"
                 >
+                    {# Content tab #}
                     {% block sw_cms_element_tabs_config_content %}
                         <sw-container
                             v-if="active === 'content'"
@@ -49,12 +50,24 @@
                         </sw-container>
                     {% endblock %}
 
+                    {# Settings tab #}
                     {% block sw_cms_element_tabs_config_settings %}
                         <sw-container
                             v-if="active === 'settings'"
                             class="sw-cms-el-config-tabs__tab-settings"
                         >
-                            Nesto
+                            <sw-checkbox-field 
+                                v-model="element.config.isOffcanvasOnMobile.value" 
+                                :label="$tc('sw-cms.elements.tabs.config.isOffcanvasOnMobile')"
+                                :help-text="$tc('sw-cms.elements.tabs.config.isOffcanvasOnMobileHelpText')"
+                            ></sw-checkbox-field>
+
+                            <sw-checkbox-field 
+                                v-if="element.config.isOffcanvasOnMobile.value"
+                                v-model="element.config.showShortPreview.value"
+                                :label="$tc('sw-cms.elements.tabs.config.showShortPreview')"
+                                :help-text="$tc('sw-cms.elements.tabs.config.showShortPreviewHelpText')"
+                            ></sw-checkbox-field>
                         </sw-container>
                     {% endblock %}
                 </template>

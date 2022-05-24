@@ -1,3 +1,28 @@
+@import "~scss/variables";
+
 .sw-cms-el-preview-tabs {
-    
+    background: $color-white;
+    color: $color-darkgray-200;
+
+    &__tabs {
+        display: flex;
+        margin: 0 0 5px;
+    }
+
+    &__tab-link {
+        font-size: 14px;
+        color: $color-gray-500;
+        border-bottom: 1px solid $color-gray-500;
+        margin: auto 10px auto 0;
+        padding: 0 0 5px;
+
+        &:first-child {
+            color: $color-darkgray-200;
+            border-bottom: 1px solid $color-darkgray-200;
+        }
+    }
+
+    p {
+        font-size: 12px;
+    }
 }

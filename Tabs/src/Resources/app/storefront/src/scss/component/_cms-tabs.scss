@@ -1,3 +1,49 @@
+.cms-element-tabs {
+    &.is-offcanvas-mobile {
+        .nav-item {
+            @include media-breakpoint-down(xs) {
+                width: 100%;
+                margin: 0 0 10px 0;
+            }
+    
+            .icon {
+                width: 16px;
+                height: 16px;
+                float: right;
+    
+                @include media-breakpoint-up(sm) {
+                    display: none;
+                }
+    
+                svg {
+                    top: 2px;
+                }
+            }
+        }
+
+        .nav-link {
+            @include media-breakpoint-down(xs) {
+                padding: 10px;
+                border: 1px solid $sw-border-color;
+                border-radius: 4px;
+                font-weight: $font-weight-bold;
+            }
+        }
+
+        .tab-contents {
+            @include media-breakpoint-down(xs) {
+                display: none;
+            }
+        }
+
+        .offcanvas-close {
+            @include media-breakpoint-up(sm) {
+                display: none;
+            }
+        }
+    }
+}
+
 .card-tabs {
     .card-header {
         padding: 0;
@@ -11,5 +57,15 @@
         &.active {
             background-color: transparent;
         }
+    }
+}
+
+.tab-preview {
+    display: block;
+    padding-top: 10px;
+    font-weight: $font-weight-normal;
+
+    @include media-breakpoint-up(sm) {
+        display: none;
     }
 }
