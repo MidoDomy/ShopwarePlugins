@@ -1,3 +1,14 @@
+@import "~scss/variables";
+
 .sw-cms-el-preview-list {
-    
+    div {
+        margin: 10px 0;
+        height: 0.4em;
+        border-radius: 25px;
+        background-color: $color-gray-100;
+
+        &.sw-cms-el-category-navigation__placeholder--subcategory {
+            margin: 7px 0 7px 15px;
+        }
+    }
 }

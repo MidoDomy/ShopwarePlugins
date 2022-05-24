@@ -7,23 +7,16 @@ Component.register('list-item', {
     template,
 
     props: {
+        defaultValue: {
+            type: Object,
+            required: true
+        },
         value: {
             type: Object,
             required: true
         },
         index: {
             type: Number
-        }
-    },
-
-    data() {
-        return {
-            // default values added to the newly added item
-            defaultValue: {
-                name: "Child item name",
-                hasChildren: false,
-                children: []
-            }
         }
     },
 

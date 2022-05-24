@@ -1,3 +1,16 @@
-.sw-cms-block-preview-list {
+@import "~scss/variables";
 
+.sw-cms-block-preview-list {
+    padding: 10px 20px;
+
+    div {
+        margin: 10px 0;
+        height: 0.7em;
+        border-radius: 4px;
+        background-color: $color-gray-100;
+
+        &.sw-cms-block-category-navigation__placeholder--subcategory {
+            margin: 7px 0 7px 30px;
+        }
+    }
 }

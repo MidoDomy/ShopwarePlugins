@@ -1,4 +1,5 @@
 /* Components */
+import './component/sw-cms-sidebar';
 import './component/repeater';
 import './component/forms';
 

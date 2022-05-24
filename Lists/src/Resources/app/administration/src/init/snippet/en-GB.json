@@ -1,5 +1,10 @@
 {
     "sw-cms": {
+        "detail": {
+            "label": {
+                "customElements": "Cutsom elements"
+            }
+        },
         "component": {
             "repeater": {
                 "contentElements": "Content elements"

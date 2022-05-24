@@ -15,7 +15,16 @@ Shopware.Service('cmsService').registerCmsElement({
         },
         fields: {
             source: 'static',
-            value: []
+            value: [
+                {
+                    name: "list-item",
+                    value: {
+                        name: "New item",
+                        hasChildren: false,
+                        children: []
+                    }
+                }
+            ]
         },
         collapseType: {
             source: 'static',

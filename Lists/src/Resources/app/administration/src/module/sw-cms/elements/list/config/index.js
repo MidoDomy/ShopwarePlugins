@@ -18,7 +18,7 @@ Component.register('sw-cms-el-config-list', {
         return {
             // default values added to the newly added item
             defaultValue: {
-                name: "Item name",
+                name: "New item",
                 hasChildren: false,
                 children: []
             }

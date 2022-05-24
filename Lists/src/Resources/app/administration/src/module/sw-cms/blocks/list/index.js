@@ -4,7 +4,7 @@ import './preview';
 Shopware.Service('cmsService').registerCmsBlock({
     name: 'list',
     label: 'sw-cms.blocks.list.label',
-    category: 'text',
+    category: 'custom-elements',
     component: 'sw-cms-block-list',
     previewComponent: 'sw-cms-preview-list',
     defaultConfig: {
